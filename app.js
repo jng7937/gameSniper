@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.set("view engine", "ejs");
 app.set("views", path.resolve(__dirname, "templates"));
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.get("/", (request, response) => {
     let portLink = `http://localhost:${portNumber}/`;
     let variables = {
@@ -43,7 +44,7 @@ app.post("/", (request, response) => {
             } else {
                 data.forEach(deal => {
                     dealsResult+=
-                        `<div class="dealDiv">
+                        `<div class="dealElemBox">
                             Title: ${deal.title}, Sale Price: ${deal.salePrice}, Normal Price: ${deal.normalPrice}
                         </div>`;
                 })

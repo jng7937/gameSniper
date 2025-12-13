@@ -1,0 +1,15 @@
+html{
+    color: black;
+    font-size: 1vw;
+}
+
+.dealElemBox{
+    width: fit-content;
+    height: auto;
+    border: 2px black double;
+    background-color: aquamarine;
+    color: black;
+    padding: 1rem;
+    border-radius: 4rem;
+
+}
