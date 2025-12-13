@@ -40,7 +40,7 @@ app.post("/", (request, response) => {
             const data = await apiResponse.json();
             console.log(data);
             if (data.length === 0){
-                deals += `Sorry, no deals matched your search.`
+                dealsResult += `Sorry, no deals matched your search.`
             } else {
                 data.forEach(deal => {
                     dealsResult+=
