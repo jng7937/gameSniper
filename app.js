@@ -42,12 +42,12 @@ app.get('/login', (request, response) => {
 })
 
 app.post('/form', (request, response) => {
-  const { maxPrice } = request.body
+  const { platform, maxPrice } = request.body
   console.log(`Max price is: ${maxPrice}`)
-  let apiURL = `https://www.cheapshark.com/api/1.0/deals?storeID=1&upperPrice=${maxPrice}`
-  let dealsResult = ''
+  let apiURL = `https://www.cheapshark.com/api/1.0/deals?storeID=${platform}&upperPrice=${maxPrice}`
+  let dealsResult = '';
 
-  ;(async () => {
+  (async () => {
     try {
       const apiResponse = await fetch(apiURL)
       console.log(apiURL)
@@ -58,9 +58,11 @@ app.post('/form', (request, response) => {
       } else {
         data.forEach(deal => {
           dealsResult += `<div class="dealElemBox">
-                            Title: ${deal.title}, Sale Price: ${deal.salePrice}, Normal Price: ${deal.normalPrice}
-                        </div>`
-        })
+                            <img src=${deal.thumb} alt="(Thumbnail of game)"> 
+                            <p>Title: ${deal.title}</p>
+                            <p>Sale Price: ${deal.salePrice} Normal Price: ${deal.normalPrice}</p>
+                        </div>`;
+        });
       }
       let variables = {
         dealsData: dealsResult
