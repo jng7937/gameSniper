@@ -13,3 +13,12 @@ html{
     border-radius: 4rem;
 
 }
+
+.home{
+    background-image: url('bg.png');
+    background-size: cover;
+}
+
+.home h1 {
+        font-family: "Playwrite ES"; 
+}

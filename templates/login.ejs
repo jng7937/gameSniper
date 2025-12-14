@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Sniper</title>
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    
+</head>
+<body>
+    <h1>If you dont have an account already please register</h1>
+    <h2> <%- error %></h2>
+    <form method="post" action="/login">
+        First Name: <input type="text" name="firstname">
+        Last Name: <input type="text" name="lastname">
+        Email Name: <input type="email" name="email">
+        <input type="submit" id="login" value="Login">
+    </form>
+    <br> <br>
+    <a href = "/register"> Register </a>
+</body>
+</html>
