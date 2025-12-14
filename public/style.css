@@ -3,7 +3,11 @@ html{
     font-size: 1vw;
 }
 
+
 .dealElemBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: fit-content;
     height: auto;
     border: 2px black double;
@@ -14,6 +18,7 @@ html{
 
 }
 
+
 .home{
     background-image: url('bg.png');
     background-size: cover;
@@ -21,4 +26,12 @@ html{
 
 .home h1 {
         font-family: "Playwrite ES"; 
+}
+
+#dealsContainerDiv{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem;
 }
