@@ -29,10 +29,10 @@ console.log(`Web server starting and running at http://localhost:${portNumber}`)
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/', (request, response) => {
-  response.render('index')
+  response.render('index');
 })
 app.get('/register', (request, response) => {
-  response.render('register')
+  response.render('register');
 })
 app.get('/login', (request, response) => {
   const variable = {
@@ -42,17 +42,23 @@ app.get('/login', (request, response) => {
 })
 
 app.post('/form', (request, response) => {
-  const { platform, maxPrice } = request.body
+  const { platform, maxPrice } = request.body;
   console.log(`Max price is: ${maxPrice}`)
   let apiURL = `https://www.cheapshark.com/api/1.0/deals?storeID=${platform}&upperPrice=${maxPrice}`
   let dealsResult = '';
 
   (async () => {
     try {
-      const apiResponse = await fetch(apiURL)
-      console.log(apiURL)
-      const data = await apiResponse.json()
-      console.log(data)
+      const apiResponse = await fetch(apiURL);
+      console.log(apiURL);
+      //added this for debugging
+      console.log(`Status: ${apiResponse.status}`);
+      console.log(`Content-Type: ${apiResponse.headers.get("content-type")}`);
+      const text = await apiResponse.text();
+      console.log(`\nRaw response: ${text}`);
+      //const data = await apiResponse.json();
+      const data = JSON.parse(text);
+      console.log(`\ndata after reading JSON: ${data}`);
       if (data.length === 0) {
         dealsResult += `Sorry, no deals matched your search.`
       } else {
