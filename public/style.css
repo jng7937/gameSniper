@@ -1,6 +1,10 @@
 html{
     color: black;
     font-size: 1vw;
+    background-image: url('bg3.jpg');
+    background-size: cover;
+    /* background-position: center; */
+    background-repeat: no-repeat;
 }
 
 
@@ -11,17 +15,44 @@ html{
     width: fit-content;
     height: auto;
     border: 2px black double;
-    background-color: aquamarine;
+    background-color: rgb(78, 237, 153);
     color: black;
     padding: 1rem;
     border-radius: 4rem;
 
 }
 
+.clearContainer{
+    background-color: rgba(227, 230, 239, 0.5);
+    background-size: contain;
+    border: 0.2rem double rgb(50, 61, 123);
+    border-radius: 4rem;
+    justify-items: center;
+    width: fit-content;
+    margin: auto;
+    padding: 1rem;
+}
 
-.home{
-    background-image: url('bg.png');
-    background-size: cover;
+.btn{
+    background-color:rgb(0, 159, 132);
+    padding: 1rem;
+    border: 1px double rgb(102, 216, 246);
+    border-radius: 1rem;
+    color:  rgba(227, 230, 239, 1);
+}
+
+.btnsDiv{
+    margin: auto;
+    padding: 2rem;
+}
+/* .home{
+    background-image: url('bg2.jpg');
+    background-size: auto;
+} */
+
+.btn:hover{
+    background-color:rgb(102, 216, 246);
+    color: rgb(50, 61, 123);
 }
 
 .home h1 {
