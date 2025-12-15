@@ -4,12 +4,18 @@ const app = express()
 const path = require('path')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const cors = require('cors')
+var session = require('express-session')
+
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.json());
 app.set('view engine', 'ejs')
 app.set('views', path.resolve(__dirname, 'templates'))
 require('dotenv').config({
   path: path.resolve(__dirname, 'credentialsDontPost/.env')
-})
+});
+app.use(express.static(path.join(__dirname, 'public')));
 const { MongoClient, ServerApiVersion } = require('mongodb')
 const { asyncWrapProviders } = require('async_hooks')
 const portNumber = process.env.PORT || 4000
@@ -24,9 +30,22 @@ if (process.argv.length !== 2) {
   process.stdout.write('Usage app.js')
   process.exit(1)
 }
+
+//from express documentation..
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {}
+};
+
+app.use(session({
+  resave: false,
+  saveUninitialized: true,
+  secret: 'keyboard cat'
+}))
+
 app.listen(portNumber)
 console.log(`Web server starting and running at http://localhost:${portNumber}`)
-app.use(express.static(path.join(__dirname, 'public')))
+
 
 app.get('/', (request, response) => {
   response.render('index');
@@ -39,10 +58,55 @@ app.get('/login', (request, response) => {
     error: ''
   }
   response.render('login', variable)
-})
+});
+app.get('/deals', (request, response) => {
+  //const html=`<i><p>You may have not searched for deals yet. Go back to search!</p></i>`;
+  let variables = {
+    dealsData: request.session.deals
+  }
+  response.render('deals', variables);
+});
 
-app.post('/form', (request, response) => {
-  const { platform, maxPrice } = request.body;
+app.post('/deals', (request, response) => {
+  let dealsResult = '';
+  console.log(`Request body: ${request.body}`);
+  const { data } = request.body;
+  //console.log(`Platform: ${platform}, MaxPrice: ${maxPrice}, data: ${data}`);
+  try{
+    
+    console.log(Array.isArray(request.body.data));
+    if (data.length === 0) {
+        dealsResult += `Sorry, no deals matched your search.`
+    } else {
+          data.forEach(deal => {
+          dealsResult += `<div class="dealElemBox">
+                            <img src=${deal.thumb} alt="(Thumbnail of game)"> 
+                            <p>Title: ${deal.title}</p>
+                            <p>Sale Price: ${deal.salePrice} Normal Price: ${deal.normalPrice}</p>
+                        </div>`;
+        });
+        //console.log(`Dealsresult:${dealsResult}`);
+    }
+    let variables = {
+        dealsData: dealsResult
+    }
+    //response.render('deals', variables);
+
+    request.session.deals = dealsResult;
+    //response.redirect('/deals');
+    response.sendStatus(200);
+  } catch (error) {
+    console.error(`Couldnt get the data. ${error}`)
+      let variables = {
+          dealsData: "ERROR in getting data."
+    }
+    //response.render('deals', variables);
+    request.session.deals = dealsResult;
+    response.redirect('/deals');
+  }
+
+  //let data = localStorage.getItem("dealsInfo");
+  /*
   console.log(`Max price is: ${maxPrice}`)
   let apiURL = `https://www.cheapshark.com/api/1.0/deals?storeID=${platform}&upperPrice=${maxPrice}`
   let dealsResult = '';
@@ -70,14 +134,13 @@ app.post('/form', (request, response) => {
                         </div>`;
         });
       }
-      let variables = {
-        dealsData: dealsResult
-      }
+      
       response.render('deals', variables)
     } catch (error) {
       console.error(`Couldnt get the data. ${error}`)
     }
-  })()
+  })();*/
+  
 })
 
 app.post('/register', (request, response) => {
