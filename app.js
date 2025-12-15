@@ -74,7 +74,6 @@ app.post('/deals', (request, response) => {
   //console.log(`Platform: ${platform}, MaxPrice: ${maxPrice}, data: ${data}`);
   try{
     
-    console.log(Array.isArray(request.body.data));
     if (data.length === 0) {
         dealsResult += `Sorry, no deals matched your search.`
     } else {

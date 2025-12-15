@@ -2,11 +2,8 @@ console.log("script.js loaded");
 const dealsDiv = document.getElementById("dealsContainerDiv");
 document.addEventListener("DOMContentLoaded", () => {
 document.getElementById("form").addEventListener("submit", (e) => {
-    //need to stop it from autosubmitting
-    
+    //need to stop it from autosubmitting 
     e.preventDefault();
-    
-
     
    (async () => {
         try {
