@@ -163,7 +163,7 @@ app.post('/register', (request, response) => {
 app.post('/login', async (request, response) => {
   let { firstname, lastname, email } = request.body
   let data = await lookup(firstname, lastname, email)
-  if (data === undefined) {
+  if (data === null) {
     const variable = {
       error: "You don't have an account. Please register."
     }
@@ -209,14 +209,7 @@ async function lookup (firstname, lastname, email) {
       Email: email
     })
     mongoose.disconnect()
-    if (result === undefined) {
-      return result
-    }
-    return {
-      firstname: result.FirstName,
-      lastname: result.LastName,
-      email: result.Email
-    }
+      return result;
   } catch (err) {
     console.error(err)
   }
