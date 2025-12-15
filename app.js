@@ -31,7 +31,7 @@ if (process.argv.length !== 2) {
   process.exit(1)
 }
 
-//from express documentation..
+//from express documentation.. using this to send stuff from post to get to render page..
 var sess = {
   secret: 'keyboard cat',
   cookie: {}
@@ -103,42 +103,6 @@ app.post('/deals', (request, response) => {
     request.session.deals = dealsResult;
     response.redirect('/deals');
   }
-
-  //let data = localStorage.getItem("dealsInfo");
-  /*
-  console.log(`Max price is: ${maxPrice}`)
-  let apiURL = `https://www.cheapshark.com/api/1.0/deals?storeID=${platform}&upperPrice=${maxPrice}`
-  let dealsResult = '';
-
-  (async () => {
-    try {
-      const apiResponse = await fetch(apiURL);
-      console.log(apiURL);
-      //added this for debugging
-      console.log(`Status: ${apiResponse.status}`);
-      console.log(`Content-Type: ${apiResponse.headers.get("content-type")}`);
-      const text = await apiResponse.text();
-      console.log(`\nRaw response: ${text}`);
-      //const data = await apiResponse.json();
-      const data = JSON.parse(text);
-      console.log(`\ndata after reading JSON: ${data}`);
-      if (data.length === 0) {
-        dealsResult += `Sorry, no deals matched your search.`
-      } else {
-        data.forEach(deal => {
-          dealsResult += `<div class="dealElemBox">
-                            <img src=${deal.thumb} alt="(Thumbnail of game)"> 
-                            <p>Title: ${deal.title}</p>
-                            <p>Sale Price: ${deal.salePrice} Normal Price: ${deal.normalPrice}</p>
-                        </div>`;
-        });
-      }
-      
-      response.render('deals', variables)
-    } catch (error) {
-      console.error(`Couldnt get the data. ${error}`)
-    }
-  })();*/
   
 })
 
