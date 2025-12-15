@@ -171,11 +171,11 @@ app.post('/login', async (request, response) => {
   } else {
     let result =
       '<strong>First Name: </strong>' +
-      data.firstname +
+      data.FirstName +
       '<br><strong>Last Name: </strong>' +
-      data.lastname +
+      data.LastName +
       '<br><strong>Email Address: </strong>' +
-      data.email
+      data.Email
     let portLink = `http://localhost:${portNumber}/`
     const variable = {
       data: result,
@@ -208,6 +208,7 @@ async function lookup (firstname, lastname, email) {
       LastName: lastname,
       Email: email
     })
+    mongoose.disconnect()
     if (result === undefined) {
       return result
     }
