@@ -127,7 +127,7 @@ app.post('/register', (request, response) => {
 app.post('/login', async (request, response) => {
   let { firstname, lastname, email } = request.body
   let data = await lookup(firstname, lastname, email)
-  if (data === undefined) {
+  if (data === null) {
     const variable = {
       error: "You don't have an account. Please register."
     }
@@ -135,11 +135,11 @@ app.post('/login', async (request, response) => {
   } else {
     let result =
       '<strong>First Name: </strong>' +
-      data.firstname +
+      data.FirstName +
       '<br><strong>Last Name: </strong>' +
-      data.lastname +
+      data.LastName +
       '<br><strong>Email Address: </strong>' +
-      data.email
+      data.Email
     let portLink = `http://localhost:${portNumber}/`
     const variable = {
       data: result,
@@ -167,19 +167,13 @@ async function database_helper (firstname, lastname, email) {
 async function lookup (firstname, lastname, email) {
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING)
-    const result = await Profile.find({
+    const result = await Profile.findOne({
       FirstName: firstname,
       LastName: lastname,
       Email: email
     })
-    if (result === undefined) {
-      return result
-    }
-    return {
-      firstname: result.FirstName,
-      lastname: result.LastName,
-      email: result.Email
-    }
+    mongoose.disconnect()
+      return result;
   } catch (err) {
     console.error(err)
   }
