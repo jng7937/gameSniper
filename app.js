@@ -203,7 +203,7 @@ async function database_helper (firstname, lastname, email) {
 async function lookup (firstname, lastname, email) {
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING)
-    const result = await Profile.find({
+    const result = await Profile.findOne({
       FirstName: firstname,
       LastName: lastname,
       Email: email
