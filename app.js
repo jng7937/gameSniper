@@ -60,7 +60,6 @@ app.get('/login', (request, response) => {
   response.render('login', variable)
 });
 app.get('/deals', (request, response) => {
-  //const html=`<i><p>You may have not searched for deals yet. Go back to search!</p></i>`;
   let variables = {
     dealsData: request.session.deals
   }
@@ -71,7 +70,6 @@ app.post('/deals', (request, response) => {
   let dealsResult = '';
   console.log(`Request body: ${request.body}`);
   const { data } = request.body;
-  //console.log(`Platform: ${platform}, MaxPrice: ${maxPrice}, data: ${data}`);
   try{
     
     if (data.length === 0) {
@@ -84,22 +82,18 @@ app.post('/deals', (request, response) => {
                             <p>Sale Price: ${deal.salePrice} Normal Price: ${deal.normalPrice}</p>
                         </div>`;
         });
-        //console.log(`Dealsresult:${dealsResult}`);
     }
     let variables = {
         dealsData: dealsResult
     }
-    //response.render('deals', variables);
 
     request.session.deals = dealsResult;
-    //response.redirect('/deals');
     response.sendStatus(200);
   } catch (error) {
     console.error(`Couldnt get the data. ${error}`)
       let variables = {
           dealsData: "ERROR in getting data."
     }
-    //response.render('deals', variables);
     request.session.deals = dealsResult;
     response.redirect('/deals');
   }
@@ -125,9 +119,9 @@ app.post('/register', (request, response) => {
 })
 
 app.post('/login', async (request, response) => {
-  let { firstname, lastname, email } = request.body
-  let data = await lookup(firstname, lastname, email)
-  if (data === null) {
+  let {email} = request.body
+  let data = await lookup(email)
+  if (!data) {
     const variable = {
       error: "You don't have an account. Please register."
     }
@@ -164,12 +158,10 @@ async function database_helper (firstname, lastname, email) {
   }
 }
 
-async function lookup (firstname, lastname, email) {
+async function lookup (email) {
   try {
     await mongoose.connect(process.env.MONGO_CONNECTION_STRING)
     const result = await Profile.findOne({
-      FirstName: firstname,
-      LastName: lastname,
       Email: email
     })
     mongoose.disconnect()
