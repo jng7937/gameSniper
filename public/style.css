@@ -44,6 +44,15 @@ html{
     color:  rgba(227, 230, 239, 1);
 }
 
+.largeBtn{
+    background-color: rgb(50, 61, 123);
+    color:  rgba(227, 230, 239, 1);
+    margin: auto;
+    display: flex;
+    width: 10rem;
+    justify-content: center;
+}
+
 .btnsDiv{
     margin: auto;
     padding: 2rem;
@@ -56,6 +65,10 @@ html{
 .btn:hover{
     background-color:rgb(102, 216, 246);
     color: rgb(50, 61, 123);
+}
+
+.largeBtn:hover{
+    background-color: #FFABA1;
 }
 
 h1 {
