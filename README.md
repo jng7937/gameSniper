@@ -6,7 +6,7 @@ Group Members: Ananya Jagdish (ajagdish), Jennifer Ding (jding755)
 
 App Description: A website to find you deals on various gaming platforms within a certain price range.
 
-YouTube Video Link: https://www.youtube.com/MyAmazingAPP
+YouTube Video Link: [https://youtu.be/YvmoPfnaMWU](https://youtu.be/YvmoPfnaMWU)
 
 APIs: [CheapShark API](https://apidocs.cheapshark.com/)
 
