@@ -38,6 +38,9 @@ html{
     padding: 1rem;
     border: 1px double rgb(102, 216, 246);
     border-radius: 1rem;
+    font-size: 1vw;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    text-decoration: none;
     color:  rgba(227, 230, 239, 1);
 }
 
